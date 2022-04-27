@@ -48,7 +48,7 @@ docker run --network gist604b --entrypoint sh mdillon/postgis -c 'psql -h postgi
  
  In my example, `/Users/aaryn/gist604b_data/downloads` is where I downloaded the pbf file to but for you it will be different.
  ```
- docker run -i -t -e PGPASSWD=postgres -v /Users/aaryn/gist604b_data/downloads:/data/downloads --network gist604b --rm openfirmware/osm2pgsql -c 'osm2pgsql -U postgres -W -d iceland -H postgis -s -G --number-processes 16 -C 20480 /data/downloads/iceland-latest.osm.pbf' 
+ docker run -i -t -e PGPASSWD=postgres -v /Users/aaryn/gist604b_data/downloads:/data/downloads --network gist604b --rm openfirmware/osm2pgsql -c 'osm2pgsql -U postgres -W -d iceland -H postgis -s -G --number-processes 8 -C 20480 /data/downloads/iceland-latest.osm.pbf' 
 ```
 
 This could take some time so be prepared to let it sit. When it is complete, you will see a message like:
