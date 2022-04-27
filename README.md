@@ -44,11 +44,11 @@ docker run --network gist604b --entrypoint sh mdillon/postgis -c 'psql -h postgi
  ```
  
  ## Populate the PostGIS database with OSM pbf data
- We will use a pre-built docker container with the osm2psql tool in it. This container [openfirmware/osm2pgsql](https://hub.docker.com/r/openfirmware/osm2pgsql/), will run in our `gist604b` network and connect to our postgis database. We will have to mount a volume to make our downloaded pbf file accessible to the docker container. 
+ We will use a pre-built docker container with the osm2psql tool in it. This container [aaryno/osm2pgsql](https://github.com/ua-gist-open-source/docker-osm2pgsql), will run in our `gist604b` network and connect to our postgis database. We will have to mount a volume to make our downloaded pbf file accessible to the docker container. 
  
  In my example, `/Users/aaryn/gist604b_data/downloads` is where I downloaded the pbf file to but for you it will be different.
  ```
- docker run -i -t -e PGPASSWD=postgres -v /Users/aaryn/gist604b_data/downloads:/data/downloads --network gist604b --rm openfirmware/osm2pgsql -c 'osm2pgsql -U postgres -W -d iceland -H postgis -s -G --number-processes 8 -C 20480 /data/downloads/iceland-latest.osm.pbf' 
+ docker run -i -t -e PGPASSWD=postgres -v /Users/aaryn/gist604b_data/downloads:/data/downloads --network gist604b --rm aaryno/osm2pgsql -c 'osm2pgsql -U postgres -W -d iceland -H postgis -s -G --number-processes 8 -C 20480 /data/downloads/iceland-latest.osm.pbf' 
 ```
 
 This could take some time so be prepared to let it sit. When it is complete, you will see a message like:
